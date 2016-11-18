@@ -73,7 +73,7 @@ namespace blackjack
             DCardN++;
 
             Console.WriteLine();
-            Console.WriteLine($"Dearler card #{DCardN} is: {Dealer}");
+            Console.WriteLine($"Dealer card #{DCardN} is: {Dealer}");
 
             Player = randomDeck[count];
             count++;
@@ -96,7 +96,6 @@ namespace blackjack
             {
                 if (Pvalue == 21)
                 {
-
                     Console.WriteLine("BlackJack...You win!!!");
                     Console.WriteLine();
                     Console.WriteLine("Dealer has: " + Dvalue);
@@ -122,7 +121,7 @@ namespace blackjack
                         {
                             Console.WriteLine("You are busted!!!");
                             Console.WriteLine();
-                            Console.WriteLine("Dealer has: " + Dvalue);
+                            //Console.WriteLine("Dealer has: " + Dvalue);
                             break;
                         }
                         else if (PCardN == 6 && Pvalue < 21)
@@ -143,25 +142,70 @@ namespace blackjack
                         Console.WriteLine("You must enter a y or a n");
                     }
                 }
-
-
-
+                break;
             }
 
+
             //Dealer Rules//
-                        
-                Console.WriteLine();
-                Console.WriteLine($"Dearler card #{DCardN} is: {Dealer}");
-                Console.WriteLine("Dealer has: " + Dvalue);
-            
+
+            Console.WriteLine();
+            Console.WriteLine($"Dealer card #{DCardN} is: {Dealer}");
+            Console.WriteLine("Dealer has: " + Dvalue);
+
+            while (true)
+            {
+                if (Dvalue == 21 && Pvalue < 21)
+                {
+                    Console.WriteLine("Dealer Win...Sorry!!!");
+                    break;
+                }
+                else if (Dvalue == 18 && Pvalue < 18)
+                {
+                    Console.WriteLine("Dealer Win!!!");
+                    break;
+                }
+                    else if (Dvalue == Pvalue && Dvalue <21 && Pvalue <21 )
+                    {
+                    Console.WriteLine("We are tied...shall we play again?");
+                    }
+
+                if (Pvalue < 21 && Dvalue < 18)
+                {
+                    Console.WriteLine("Dealer hit: y/n" + "?");
+                    var answer = Console.ReadLine();
+
+                    if (answer == "y")
+                    {
+                        Dealer = randomDeck[count];
+                        count++;
+                        Dvalue += Dealer.GetCardValue();
+                        DCardN++;
+
+                        Console.WriteLine();
+                        Console.WriteLine($"Dealer card #{DCardN} is: {Dealer}");
+                        Console.WriteLine("Dealer has: " + Dvalue);
+                    }
+                    else if (answer == "n")
+                    {
+                        break;
+                    }
+                    else if (Dvalue < Pvalue)
+                    {
+                        Console.WriteLine("Player win!!!");
+                        break;
+                    }
+                }
+                else
+                { break; }
+            }
 
 
             Console.ReadLine();
         }
-            
+        
         }
-    
 
+    
            
         
     }
